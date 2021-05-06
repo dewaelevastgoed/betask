@@ -27,7 +27,7 @@ Creating test database for alias 'default'...
 System check identified no issues (0 silenced).
 ....
 ----------------------------------------------------------------------
-Ran 4 tests in 0.016s
+Ran 5 tests in 0.023s
 
 OK
 ```

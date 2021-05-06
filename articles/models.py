@@ -10,3 +10,6 @@ class Article(models.Model):
 
     class Meta:
         ordering = ["id"]
+
+    def __str__(self):
+        return self.title
