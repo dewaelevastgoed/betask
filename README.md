@@ -79,12 +79,15 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 
 ## Task: Part 3. Add tagging functionality
 
-* Add `Tag` model, where a `Tag` can have a parent `Tag`, i.e. we have at maximum two levels in the hierarchy. And max one parent. No multi-parent and/or tree structures.
-  * `Tag` must have `name`, `slug`, and `parent` FK (nullable)
-* Add API to be able to list/create `Tag`s
-* Add API to be able to add/remove Tag(s) to Article(s)
-* Add API to list Articles by Tag
-  * listing articles by `Tag` includes all articles related both to the tag itself AND to any of its children
+* Add `Tag` model, where a `Tag` can have a parent `Tag`.
+  * We can have at maximum two levels in the hierarchy. 
+    * Max one parent.
+    * No multi-parent and/or tree structures.
+  * Therefore `Tag` must have `name`, `slug`, and `parent` FK (nullable)
+* Add API to be able to list/create `Tag`s.
+* Add API to be able to add/remove Tag(s) to Article(s).
+* Add API to list Articles by Tag.
+  * Listing articles by `Tag` includes all articles related both to the tag itself *and* to any of its children.
 
 **Tasks 4 and 5 are OPTIONAL. Only attempt once you have the above tasks working properly.**
 
