@@ -1,0 +1,18 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+    "settings": {
+        "python.linting.flake8Enabled": true,
+		"python.linting.flake8Path": "/Users/jv/.pyenv/versions/betaskenv/bin/flake8",
+		"python.linting.pylintEnabled": false,
+		"python.linting.enabled": true,
+		"files.exclude": {
+			"**/*.pyc": true,
+			"**/__pycache__": true
+		},
+		"editor.detectIndentation": false
+	}
+}
