@@ -4,6 +4,8 @@
 
 The objective here is to assess usage of Python, Django and DRF.
 
+Try to limit the time you spend on this to 2 hours.
+
 Completion of all tasks is not mandatory. We do not want you to spend more time than required.
 
 **It is totally OK not to finish the whole exercise.**
