@@ -12,12 +12,20 @@ Still please pay attention to make sure that the parts delivered work. If they d
 
 ## Setup
 
-Once you check you clone the repository,
+1. Clone the repository
+2. Create your own branch, can name it as your Github username
 
-* create a new branch to push your changes to,
-* feel free to use whatever process you use to develop code locally.
+Feel free to use whatever process you use to develop code locally.
+
+### Pre-requisites
 
 The Python version used to write the code is `3.9.0`. A virtualenv was created and all packages used are in `requirements.txt`.
+
+Once your virtualenv is set up, you can install all packages using:
+
+```
+pip install -r requirements.txt
+```
 
 Once at the repo's top-level run tests using `./manage.py test`. This should result in:
 
@@ -30,6 +38,13 @@ System check identified no issues (0 silenced).
 Ran 5 tests in 0.023s
 
 OK
+```
+
+You could also do the below to run the Django server locally:
+
+```
+./manage.py migrate
+./manage.py runserver
 ```
 
 ### Code formatting
@@ -93,6 +108,7 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 
 ## Task: Part 4. Add Tag update/delete functionality (optional)
 
+* Only if you have spare time on your hands
 * Add API to update/delete Tags
   * Prevent deletion of `Tag` when it has any Article(s) related to it
   * Prevent update of `Tag.slug` if it has any Article(s) related to it
