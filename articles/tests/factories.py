@@ -1,6 +1,6 @@
 import factory
 
-from articles.models import Article
+from articles.models import Article, Tag
 
 
 class ArticleFactory(factory.django.DjangoModelFactory):
@@ -9,3 +9,11 @@ class ArticleFactory(factory.django.DjangoModelFactory):
 
     class Meta:
         model = Article
+
+
+class TagFactory(factory.django.DjangoModelFactory):
+    name = factory.Sequence(lambda n: f"Tag {n}")
+    slug = factory.Sequence(lambda n: f"tag-{n}")
+
+    class Meta:
+        model = Tag
