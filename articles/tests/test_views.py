@@ -28,6 +28,21 @@ class ArticleListCreateAPIViewTest(APITestCase):
         article = Article.objects.get(id=response.data["id"])  # newly-created
         self.assertEqual(article.slug, "test-article")
 
+    def test_filtering(self):
+        article1, article2 = ArticleFactory.create_batch(2)
+        response = self.client.get(
+            reverse("article_list")
+            + f"?title={article1.title}&content={article1.content}"
+        )
+        self.assertEqual(len(response.data), 1)
+
+    def test_ordering(self):
+        article1, article2, article3 = ArticleFactory.create_batch(3)
+        response = self.client.get(reverse("article_list") + "?ordering=-title")
+        self.assertEqual(response.data[0]["title"], article3.title)
+        response = self.client.get(reverse("article_list") + "?ordering=-created_at")
+        self.assertEqual(response.data[0]["title"], article3.title)
+
 
 class ArticleDetailAPIViewTest(APITestCase):
     def test_update(self):
