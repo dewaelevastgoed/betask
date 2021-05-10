@@ -8,6 +8,12 @@ class ArticleSerializer(serializers.ModelSerializer):
         model = Article
         fields = "__all__"
 
+    def perform_delete_on_tag(self):
+        tag = self.instance.tag
+        if tag:
+            self.instance.tag = None
+            self.instance.save()
+
 
 class TagSerializer(serializers.ModelSerializer):
     class Meta:
