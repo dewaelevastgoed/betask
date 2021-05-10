@@ -8,6 +8,7 @@ from articles.serializers import ArticleSerializer
 class ArticleListCreateAPIView(generics.ListCreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
+    ordering_fields = ['title', 'created_at']
 
     def get_queryset(self):
         """
