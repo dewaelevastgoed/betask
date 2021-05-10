@@ -28,6 +28,18 @@ class ArticleListCreateAPIViewTest(APITestCase):
         article = Article.objects.get(id=response.data["id"])  # newly-created
         self.assertEqual(article.slug, "test-article")
 
+    def test_not_found_title_filter(self):
+        article1, article2 = ArticleFactory.create_batch(2)
+        response = self.client.get(f'{reverse("article_list")}?title=xyz')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
+
+    def test_not_found_content_filter(self):
+        article1, article2 = ArticleFactory.create_batch(2)
+        response = self.client.get(f'{reverse("article_list")}?content=xyz')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
+
     def test_title_filter(self):
         article1, article2 = ArticleFactory.create_batch(2)
         response = self.client.get(f'{reverse("article_list")}?title={article1.title}')
@@ -41,6 +53,12 @@ class ArticleListCreateAPIViewTest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
         self.assertEqual(response.data[0].get('content'), article1.content)
+
+    def test_not_found_content_and_title_filter(self):
+        article1, article2 = ArticleFactory.create_batch(2)
+        response = self.client.get(f'{reverse("article_list")}?content=xyz&title=xyz')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
 
     def test_content_and_title_filter(self):
         article1, article2 = ArticleFactory.create_batch(2)
