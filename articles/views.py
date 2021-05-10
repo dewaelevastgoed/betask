@@ -63,3 +63,15 @@ class ArticleDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 class TagListCreateAPIView(generics.ListCreateAPIView):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
+
+
+class ArticleTagRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+    lookup_url_kwarg = "tag"
+
+    def get(self, request, *args, **kwargs):
+        key = self.kwargs[self.lookup_url_kwarg]
+        article = Article.objects.filter(tag_id=key)
+        serializer = self.serializer_class(article, many=True)
+        return Response(serializer.data)
