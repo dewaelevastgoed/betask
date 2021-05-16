@@ -1,3 +1,19 @@
+# Task items Completed
+## Description
+- Created Base Model (Which consists commonly used fields) for Inheritance (Code Reusability)
+- Structured the project similar to MVC Architecture
+  - Every Model is defined in a single File - To increase readability
+  - Same goes with Serializers
+- Updated documentation for every feature updated with corresponding cURL's
+- Created a Common module, which include base models and constants utilized in the project.
+- Utilized base responses for reusability and faster development process
+- Followed PEP8 standards with flake8 linter and black formatter
+- Filtering, Ordering to existing Article API
+- Tests for the updated Article API's
+- Added Tag Creation/List/Updating/Deleting Functionality
+- Tag articles
+
+
 # Backend Task Challenge
 
 ## Intro
@@ -153,13 +169,27 @@ curl --location --request PUT 'http://127.0.0.1:8000/api/articles/5/' \
 
 **Tasks 4 and 5 are OPTIONAL. Only attempt once you have the above tasks working properly.**
 
-## Task: Part 4. Add Tag update/delete functionality (optional)
+## Task: Part 4. Add Tag update/delete functionality (optional) [DONE]
 
 * Only if you have spare time on your hands
 * Add API to update/delete Tags
   * Prevent deletion of `Tag` when it has any Article(s) related to it
   * Prevent update of `Tag.slug` if it has any Article(s) related to it
 
+### Tag Update View
+```
+curl --location --request PUT 'http://127.0.0.1:8000/api/tags/2/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Sr Lead",
+    "slug": "senior-lead"
+}'
+```
+
+### Tag Delete View
+```
+curl --location --request DELETE 'http://127.0.0.1:8000/api/tags/2/'
+```
 
 ## Task: Part 5. Add tests (optional)
 
