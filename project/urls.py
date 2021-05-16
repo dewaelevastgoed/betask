@@ -16,11 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from articles.views import ArticleDetailAPIView, ArticleListCreateAPIView
+from articles.views import (
+    ArticleDetailAPIView,
+    ArticleListCreateAPIView,
+    TagListCreateAPIView,
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/articles/", ArticleListCreateAPIView.as_view(), name="article_list"),
+    path("api/tags/", TagListCreateAPIView.as_view(), name="tag_list"),
     path(
         "api/articles/<int:pk>/", ArticleDetailAPIView.as_view(), name="article_detail"
     ),
