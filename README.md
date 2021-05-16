@@ -102,7 +102,7 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 * Start by looking at how current tests are structured.
 * Then add more test cases.
 
-## Task: Part 3. Add tagging functionality [Partially Done]
+## Task: Part 3. Add tagging functionality [DONE]
 
 * Add `Tag` model, where a `Tag` can have a parent `Tag`.
   * We can have at maximum two levels in the hierarchy. 
@@ -127,10 +127,23 @@ curl --location --request POST 'http://127.0.0.1:8000/api/tags/' \
 ```
 ### List of All tags
 ```
-- List of Tags
 curl --location --request GET 'http://127.0.0.1:8000/api/tags/'
 ```
 
+### Add or Removing Tags
+
+```
+curl --location --request PUT 'http://127.0.0.1:8000/api/articles/5/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "tags": [
+        1
+    ],
+    "title": "DewaeleGroup",
+    "slug": "real-estate-project-discussion",
+    "content": "Dewaele Group is working on new projects to improve real estate experience"
+}'
+```
 
 **Tasks 4 and 5 are OPTIONAL. Only attempt once you have the above tasks working properly.**
 
