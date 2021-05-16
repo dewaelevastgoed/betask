@@ -115,6 +115,12 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
   * Listing articles by `Tag` includes all articles related both to the tag itself *and* to any of its children.
 
 ### API to create or get list of Tags
+
+### List Articles by Tag name
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?search=lead'
+```
+
 ### Creating a Tag
 ```
 curl --location --request POST 'http://127.0.0.1:8000/api/tags/' \

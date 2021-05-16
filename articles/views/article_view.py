@@ -15,7 +15,7 @@ class ArticleListCreateAPIView(generics.ListCreateAPIView):
     # Passed from Query-Params
     ordering_fields = ["title", "created_at"]
     filterset_fields = ["title", "content"]
-    search_fields = ["tags__title", "tags__parent__title"]
+    search_fields = ["tags__name", "tags__parent__name"]
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
 
