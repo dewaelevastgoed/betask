@@ -1,9 +1,9 @@
 from django.db import models
 
+from common.base_model import BaseModel
 
-class Article(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+
+class Article(BaseModel):
     title = models.CharField(max_length=32)
     slug = models.CharField(max_length=32, unique=True)
     content = models.TextField()

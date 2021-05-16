@@ -93,7 +93,7 @@ curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=titl
 curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=title&title=Dewaele'
 ```
 
-## Task: Part 2. Add tests for Part 1
+## Task: Part 2. Add tests for Part 1 [DONE]
 
 Use DRF `APITestCase` case to add tests that cover the filtering and ordering functionality added in `Part 1`.
 
@@ -102,7 +102,7 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 * Start by looking at how current tests are structured.
 * Then add more test cases.
 
-## Task: Part 3. Add tagging functionality
+## Task: Part 3. Add tagging functionality [Partially Done]
 
 * Add `Tag` model, where a `Tag` can have a parent `Tag`.
   * We can have at maximum two levels in the hierarchy. 
@@ -113,6 +113,24 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 * Add API to be able to add/remove Tag(s) to Article(s).
 * Add API to list Articles by Tag.
   * Listing articles by `Tag` includes all articles related both to the tag itself *and* to any of its children.
+
+### API to create or get list of Tags
+### Creating a Tag
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/tags/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Jr Lead 2",
+    "slug": "jr-lead-slug-2",
+    "parent":null
+}'
+```
+### List of All tags
+```
+- List of Tags
+curl --location --request GET 'http://127.0.0.1:8000/api/tags/'
+```
+
 
 **Tasks 4 and 5 are OPTIONAL. Only attempt once you have the above tasks working properly.**
 
