@@ -1,3 +1,5 @@
+import random
+
 from rest_framework import status
 from rest_framework.test import APITestCase
 
@@ -45,3 +47,51 @@ class ArticleDetailAPIViewTest(APITestCase):
         response = self.client.delete(url)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Article.objects.count(), 0)
+
+    def test_filtered_article_list_by_title(self):
+        # List of Test Article Titles data
+        article_titles = ["TestArticle1", "TestArticle2"]
+
+        # Picking up random Article Title from the list
+        # For dynamic test
+        random_title_index = random.randint(0, len(article_titles) - 1)
+        random_title = article_titles[random_title_index]
+
+        # Creating Articles
+        for article_title in article_titles:
+            ArticleFactory.create(title=article_title)
+
+        # Retreiving Article by filtering with the Random title
+        url = reverse("article_list") + f"?title={random_title}"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response_content = response.json()
+        # Checking if Random title is being matched from the Response
+        self.assertEqual(len(response_content), 1) and self.assertEqual(
+            response_content[0]["title"], random_title
+        )
+
+    def test_ordered_article_list(self):
+        # List of Test Article Titles data
+        article_titles = ["TestArticle1", "TestArticle2"]
+
+        # Creating Articles
+        for article_title in article_titles:
+            ArticleFactory.create(title=article_title)
+
+        # Picking up random Article Title from the list
+        descending_title = article_titles[1]
+        url = reverse("article_list") + "?ordering=-title"
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        json_response = response.json()
+
+        # Checks if the returned List of items equals to Articles created
+        self.assertEqual(len(json_response), len(article_titles))
+        self.assertEqual(json_response[0]["title"], descending_title)
+
+    def test_article_not_found_by_title_filter(self):
+        response = self.client.get(f'{reverse("article_list")}?title=TestArticle1')
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 0)
