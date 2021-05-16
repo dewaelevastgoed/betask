@@ -73,7 +73,7 @@ One app, called `articles` contains:
 
 In short, the current app builds on DRF to provide an API to CRUD `Article`s.
 
-## Task: Part 1. Enhance existing API
+## Task: Part 1. Enhance existing API [DONE]
 
 Leverage DRF tooling to
 
@@ -84,6 +84,14 @@ Leverage DRF tooling to
 
 * [https://www.django-rest-framework.org/api-guide/filtering/#filtering](https://www.django-rest-framework.org/api-guide/filtering/#filtering)
 * [https://www.django-rest-framework.org/api-guide/filtering/#specifying-which-fields-may-be-ordered-against](https://www.django-rest-framework.org/api-guide/filtering/#specifying-which-fields-may-be-ordered-against)
+
+### Endpoint to Filter and Order
+
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=title'
+
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=title&title=Dewaele'
+```
 
 ## Task: Part 2. Add tests for Part 1
 
