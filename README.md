@@ -1,3 +1,19 @@
+# Task items Completed
+## Description
+- Created Base Model (Which consists commonly used fields) for Inheritance (Code Reusability)
+- Structured the project similar to MVC Architecture
+  - Every Model is defined in a single File - To increase readability
+  - Same goes with Serializers
+- Updated documentation for every feature updated with corresponding cURL's
+- Created a Common module, which include base models and constants utilized in the project.
+- Utilized base responses for reusability and faster development process
+- Followed PEP8 standards with flake8 linter and black formatter
+- Filtering, Ordering to existing Article API
+- Tests for the updated Article API's
+- Added Tag Creation/List/Updating/Deleting Functionality
+- Tag articles
+
+
 # Backend Task Challenge
 
 ## Intro
@@ -73,7 +89,7 @@ One app, called `articles` contains:
 
 In short, the current app builds on DRF to provide an API to CRUD `Article`s.
 
-## Task: Part 1. Enhance existing API
+## Task: Part 1. Enhance existing API [DONE]
 
 Leverage DRF tooling to
 
@@ -85,7 +101,15 @@ Leverage DRF tooling to
 * [https://www.django-rest-framework.org/api-guide/filtering/#filtering](https://www.django-rest-framework.org/api-guide/filtering/#filtering)
 * [https://www.django-rest-framework.org/api-guide/filtering/#specifying-which-fields-may-be-ordered-against](https://www.django-rest-framework.org/api-guide/filtering/#specifying-which-fields-may-be-ordered-against)
 
-## Task: Part 2. Add tests for Part 1
+### Endpoint to Filter and Order
+
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=title'
+
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?ordering=title&title=Dewaele'
+```
+
+## Task: Part 2. Add tests for Part 1 [DONE]
 
 Use DRF `APITestCase` case to add tests that cover the filtering and ordering functionality added in `Part 1`.
 
@@ -94,7 +118,7 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 * Start by looking at how current tests are structured.
 * Then add more test cases.
 
-## Task: Part 3. Add tagging functionality
+## Task: Part 3. Add tagging functionality [DONE]
 
 * Add `Tag` model, where a `Tag` can have a parent `Tag`.
   * We can have at maximum two levels in the hierarchy. 
@@ -106,15 +130,66 @@ Use DRF `APITestCase` case to add tests that cover the filtering and ordering fu
 * Add API to list Articles by Tag.
   * Listing articles by `Tag` includes all articles related both to the tag itself *and* to any of its children.
 
+### API to create or get list of Tags
+
+### List Articles by Tag name
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/articles/?search=lead'
+```
+
+### Creating a Tag
+```
+curl --location --request POST 'http://127.0.0.1:8000/api/tags/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Jr Lead 2",
+    "slug": "jr-lead-slug-2",
+    "parent":null
+}'
+```
+### List of All tags
+```
+curl --location --request GET 'http://127.0.0.1:8000/api/tags/'
+```
+
+### Add or Removing Tags
+
+```
+curl --location --request PUT 'http://127.0.0.1:8000/api/articles/5/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "tags": [
+        1
+    ],
+    "title": "DewaeleGroup",
+    "slug": "real-estate-project-discussion",
+    "content": "Dewaele Group is working on new projects to improve real estate experience"
+}'
+```
+
 **Tasks 4 and 5 are OPTIONAL. Only attempt once you have the above tasks working properly.**
 
-## Task: Part 4. Add Tag update/delete functionality (optional)
+## Task: Part 4. Add Tag update/delete functionality (optional) [DONE]
 
 * Only if you have spare time on your hands
 * Add API to update/delete Tags
   * Prevent deletion of `Tag` when it has any Article(s) related to it
   * Prevent update of `Tag.slug` if it has any Article(s) related to it
 
+### Tag Update View
+```
+curl --location --request PUT 'http://127.0.0.1:8000/api/tags/2/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "title": "Sr Lead",
+    "slug": "senior-lead"
+}'
+```
+
+### Tag Delete View
+```
+curl --location --request DELETE 'http://127.0.0.1:8000/api/tags/2/'
+```
 
 ## Task: Part 5. Add tests (optional)
 
