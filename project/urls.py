@@ -18,7 +18,7 @@ from django.urls import path
 
 from articles.views import ArticleDetailAPIView, ArticleListCreateAPIView, ArticleTagCreateAPIView, \
     ArticleTagDestroyAPIView
-from tags.views import TagListCreateAPIView
+from tags.views import TagListCreateAPIView, TagDetailAPIView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -29,4 +29,5 @@ urlpatterns = [
         "api/articles/<int:pk>/", ArticleDetailAPIView.as_view(), name="article_detail"
     ),
     path("api/tags/", TagListCreateAPIView.as_view(), name="tag_list"),
+    path("api/tags/<int:pk>/", TagDetailAPIView.as_view(), name="tag_list"),
 ]
