@@ -16,6 +16,48 @@ class ArticleListCreateAPIViewTest(APITestCase):
             [article["id"] for article in response.data], [article1.id, article2.id]
         )
 
+    def test_list_filtering(self):
+        article1, article2 = ArticleFactory.create_batch(2)
+        # filter by title
+        response = self.client.get(reverse("article_list"), data={"title": article1.title})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]["id"], article1.id)
+
+        # filter by content
+        response = self.client.get(reverse("article_list"), data={"content": article2.content})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data[0]["id"], article2.id)
+
+    def test_list_ordering(self):
+        article1, article2, article3 = ArticleFactory.create_batch(3)
+        # order by title ascending
+        response = self.client.get(reverse("article_list"), data={"ordering": 'title'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            [article["id"] for article in response.data], [article1.id, article2.id, article3.id]
+        )
+
+        # order by title descending
+        response = self.client.get(reverse("article_list"), data={"ordering": '-title'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            [article["id"] for article in response.data], [article3.id, article2.id, article1.id]
+        )
+
+        # order by created_at ascending
+        response = self.client.get(reverse("article_list"), data={"ordering": 'created_at'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            [article["id"] for article in response.data], [article1.id, article2.id, article3.id]
+        )
+
+        # order by created_at descending
+        response = self.client.get(reverse("article_list"), data={"ordering": '-created_at'})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(
+            [article["id"] for article in response.data], [article3.id, article2.id, article1.id]
+        )
+
     def test_create(self):
         self.assertEqual(Article.objects.count(), 0)
         data = {

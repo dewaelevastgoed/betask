@@ -1,16 +1,15 @@
 from django.db import models
 
 
-class Article(models.Model):
+class Tag(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    title = models.CharField(max_length=32)
+    name = models.CharField(max_length=32)
     slug = models.CharField(max_length=32, unique=True)
-    content = models.TextField()
-    tags = models.ManyToManyField('tags.Tag')
+    parent = models.ForeignKey('tags.Tag', null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ["id"]
 
     def __str__(self):
-        return self.title
+        return self.name
